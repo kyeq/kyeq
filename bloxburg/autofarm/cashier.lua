@@ -1,6 +1,7 @@
 getgenv().autofarm = true
 getgenv().perfectServes = true -- Set true to never miss an order, set false to make it seem more realistic (Less chance of getting banned)
 
+print("Script loaded; Any bugs, please message me on discord! auth#6178")
 local waitOrder = false
 local customLock = false
 local totalServed = 0
@@ -29,6 +30,7 @@ while task.wait() do
 					local characters = game:GetService("Workspace")["_game"].SpawnedCharacters
 					for i,v in pairs(characters:GetChildren()) do
 						if v.Name == 'BloxyBurgersCustomer' then
+							task.wait(getRandomWaitTime())
 							if v['Head']:FindFirstChild('ChatBubble') then
 								if not v['Head']:FindFirstChild('alreadyServed') then
 									if not customLock then
@@ -154,8 +156,8 @@ while task.wait() do
 											end	
 										end
 										task.wait(3)
-										customLock = false
 										print("Moving onto next customer...")
+										customLock = false
 									end
 								else
 									warn("Customer already served! [Warning]")
