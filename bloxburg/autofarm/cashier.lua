@@ -1,4 +1,6 @@
-print("Script loaded. You can always add my discord; auth#6178")
+getgenv().autofarm = true
+getgenv().perfectServes = true -- Set true to never miss an order, set false to make it seem more realistic (Less chance of getting banned)
+
 local waitOrder = false
 local customLock = false
 local totalServed = 0
@@ -28,87 +30,12 @@ while task.wait() do
 					for i,v in pairs(characters:GetChildren()) do
 						if v.Name == 'BloxyBurgersCustomer' then
 							if v['Head']:FindFirstChild('ChatBubble') then
-								if not customLock then
-									customLock = true
-									if perfectServes then
-										task.wait(getRandomWaitTime())
-										print("Succeeding order...")
-										local customerOrder = v['Order']
-										local displayOrder = register['OrderDisplay'].DisplayMain.CashierGUI.Frame
-										local burgerValue = nil
-										local friesValue = false
-										local drinkValue = false
-										if customerOrder['Burger'].Value ~= nil or customerOrder['Burger'].Value ~= false then
-											burgerValue = customerOrder['Burger'].Value
-										end
-										if customerOrder['Fries'].Value then
-											friesValue = true
-										end
-										if customerOrder['Cola'].Value then
-											drinkValue = true
-										end
-										if burgerValue ~= nil then
+								if not v['Head']:FindFirstChild('alreadyServed') then
+									if not customLock then
+										customLock = true
+										if perfectServes then
 											task.wait(getRandomWaitTime())
-											getconnections(displayOrder[burgerValue].Activated)[1]:Fire()
-											task.wait(getRandomWaitTime())
-										end
-										if friesValue then
-											task.wait(getRandomWaitTime())
-											getconnections(displayOrder['Fries'].Activated)[1]:Fire()
-											task.wait(getRandomWaitTime())
-										end
-										if drinkValue then
-											task.wait(getRandomWaitTime())
-											getconnections(displayOrder['Cola'].Activated)[1]:Fire()
-											task.wait(getRandomWaitTime())
-										end
-										task.wait(getRandomWaitTime())
-										getconnections(displayOrder['Done'].Activated)[1]:Fire()
-										totalServed += 1
-										print("Attempted to succeed order.")
-										totalServed += 1
-									elseif not perfectServes then
-										task.wait(getRandomWaitTime())
-										local failDetermin: number = math.random(1,15)
-										if failDetermin == 15 then
-											print("Failing order...")
-											local customerOrder = v['Order']
-											local displayOrder = register['OrderDisplay'].DisplayMain.CashierGUI.Frame
-											local burgerValue = nil
-											local friesValue = false
-											local drinkValue = false
-											if customerOrder['Burger'].Value ~= nil or customerOrder['Burger'].Value ~= false then
-												burgerValue = customerOrder['Burger'].Value
-											end
-											if customerOrder['Fries'].Value then
-												friesValue = true
-											end
-											if customerOrder['Cola'].Value then
-												drinkValue = true
-											end
-											if burgerValue ~= nil then
-												task.wait(getRandomWaitTime())
-											elseif burgerValue == nil then
-												getconnections(displayOrder['Deluxe'].Activated)[1]:Fire()
-												task.wait(getRandomWaitTime())
-											end
-											if friesValue then
-												task.wait(getRandomWaitTime())
-											elseif not friesValue then
-												getconnections(displayOrder['Fries'].Activated)[1]:Fire()
-												task.wait(getRandomWaitTime())
-											end
-											if drinkValue then
-												task.wait(getRandomWaitTime())
-											elseif not drinkValue then
-												getconnections(displayOrder['Cola'].Activated)[1]:Fire()
-												task.wait(getRandomWaitTime())
-											end
-											task.wait(getRandomWaitTime())
-											getconnections(displayOrder['Done'].Activated)[1]:Fire()
-											print("Attempted to fail order.")
-										elseif failDetermin ~= 15 then
-											print("Succeeding order... [Fail enabled]")
+											print("Succeeding order...")
 											local customerOrder = v['Order']
 											local displayOrder = register['OrderDisplay'].DisplayMain.CashierGUI.Frame
 											local burgerValue = nil
@@ -140,13 +67,98 @@ while task.wait() do
 											end
 											task.wait(getRandomWaitTime())
 											getconnections(displayOrder['Done'].Activated)[1]:Fire()
-											print("Attempted to succeed order. [Fail enabled]")
 											totalServed += 1
-										end	
+											print("Attempted to succeed order.")
+											local newValue = Instance.new("Decal",v['Head'])
+											newValue.Name = 'alreadyServed'
+											totalServed += 1
+										elseif not perfectServes then
+											task.wait(getRandomWaitTime())
+											local failDetermin: number = math.random(1,15)
+											if failDetermin == 15 then
+												print("Failing order...")
+												local customerOrder = v['Order']
+												local displayOrder = register['OrderDisplay'].DisplayMain.CashierGUI.Frame
+												local burgerValue = nil
+												local friesValue = false
+												local drinkValue = false
+												if customerOrder['Burger'].Value ~= nil or customerOrder['Burger'].Value ~= false then
+													burgerValue = customerOrder['Burger'].Value
+												end
+												if customerOrder['Fries'].Value then
+													friesValue = true
+												end
+												if customerOrder['Cola'].Value then
+													drinkValue = true
+												end
+												if burgerValue ~= nil then
+													task.wait(getRandomWaitTime())
+												elseif burgerValue == nil then
+													getconnections(displayOrder['Deluxe'].Activated)[1]:Fire()
+													task.wait(getRandomWaitTime())
+												end
+												if friesValue then
+													task.wait(getRandomWaitTime())
+												elseif not friesValue then
+													getconnections(displayOrder['Fries'].Activated)[1]:Fire()
+													task.wait(getRandomWaitTime())
+												end
+												if drinkValue then
+													task.wait(getRandomWaitTime())
+												elseif not drinkValue then
+													getconnections(displayOrder['Cola'].Activated)[1]:Fire()
+													task.wait(getRandomWaitTime())
+												end
+												task.wait(getRandomWaitTime())
+												getconnections(displayOrder['Done'].Activated)[1]:Fire()
+												print("Attempted to fail order.")
+												local newValue = Instance.new("Decal",v['Head'])
+												newValue.Name = 'alreadyServed'
+											elseif failDetermin ~= 15 then
+												print("Succeeding order... [Fail enabled]")
+												local customerOrder = v['Order']
+												local displayOrder = register['OrderDisplay'].DisplayMain.CashierGUI.Frame
+												local burgerValue = nil
+												local friesValue = false
+												local drinkValue = false
+												if customerOrder['Burger'].Value ~= nil or customerOrder['Burger'].Value ~= false then
+													burgerValue = customerOrder['Burger'].Value
+												end
+												if customerOrder['Fries'].Value then
+													friesValue = true
+												end
+												if customerOrder['Cola'].Value then
+													drinkValue = true
+												end
+												if burgerValue ~= nil then
+													task.wait(getRandomWaitTime())
+													getconnections(displayOrder[burgerValue].Activated)[1]:Fire()
+													task.wait(getRandomWaitTime())
+												end
+												if friesValue then
+													task.wait(getRandomWaitTime())
+													getconnections(displayOrder['Fries'].Activated)[1]:Fire()
+													task.wait(getRandomWaitTime())
+												end
+												if drinkValue then
+													task.wait(getRandomWaitTime())
+													getconnections(displayOrder['Cola'].Activated)[1]:Fire()
+													task.wait(getRandomWaitTime())
+												end
+												task.wait(getRandomWaitTime())
+												getconnections(displayOrder['Done'].Activated)[1]:Fire()
+												print("Attempted to succeed order. [Fail enabled]")
+												local newValue = Instance.new("Decal",v['Head'])
+												newValue.Name = 'alreadyServed'
+												totalServed += 1
+											end	
+										end
+										task.wait(3)
+										customLock = false
+										print("Moving onto next customer...")
 									end
-									task.wait(3)
-									customLock = false
-									print("Moving onto next customer...")
+								else
+									warn("Customer already served! [Warning]")
 								end
 							end
 						end
