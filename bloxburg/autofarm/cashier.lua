@@ -1,3 +1,4 @@
+print("Script loaded. You can always add my discord; auth#6178")
 local waitOrder = false
 local customLock = false
 local totalServed = 0
