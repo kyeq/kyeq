@@ -132,15 +132,15 @@ UITextSizeConstraint_2.MaxTextSize = 14
 
 -- Scripts:
 
-local function OPIUUF_fake_script() -- exitButton.exitScript 
+local function ZITRJ_fake_script() -- exitButton.exitScript 
 	local script = Instance.new('LocalScript', exitButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent:Destroy()
 	end)
 end
-coroutine.wrap(OPIUUF_fake_script)()
-local function NUICHG_fake_script() -- jobearnings.update 
+coroutine.wrap(ZITRJ_fake_script)()
+local function HWCBCWR_fake_script() -- jobearnings.update 
 	local script = Instance.new('LocalScript', jobearnings)
 
 	while task.wait() do
@@ -150,8 +150,8 @@ local function NUICHG_fake_script() -- jobearnings.update
 		end)
 	end
 end
-coroutine.wrap(NUICHG_fake_script)()
-local function UQWH_fake_script() -- autofarmtoggle.toggle 
+coroutine.wrap(HWCBCWR_fake_script)()
+local function RLGSTD_fake_script() -- autofarmtoggle.toggle 
 	local script = Instance.new('LocalScript', autofarmtoggle)
 
 	local newBoolean = Instance.new("BoolValue",script.Parent)
@@ -170,8 +170,8 @@ local function UQWH_fake_script() -- autofarmtoggle.toggle
 		end
 	end)
 end
-coroutine.wrap(UQWH_fake_script)()
-local function EBDEVHJ_fake_script() -- Frame.main 
+coroutine.wrap(RLGSTD_fake_script)()
+local function NZKMGFI_fake_script() -- Frame.main 
 	local script = Instance.new('LocalScript', Frame)
 
 	local hairs = {Afro = 11412443,Charming = 74878559,Combed = 13332444,Headband = 13070796,Pigtails = 82186393,Messy = 26400959,Bun = 47963332,Long = 19999424,Curly = 31309506,Sideswept = 16627529}
@@ -243,8 +243,8 @@ local function EBDEVHJ_fake_script() -- Frame.main
 		end
 	end
 end
-coroutine.wrap(EBDEVHJ_fake_script)()
-local function TGCZ_fake_script() -- Frame.smoothdrag 
+coroutine.wrap(NZKMGFI_fake_script)()
+local function EMNLVJ_fake_script() -- Frame.smoothdrag 
 	local script = Instance.new('LocalScript', Frame)
 
 	local UIS = game:GetService("UserInputService")
@@ -285,4 +285,4 @@ local function TGCZ_fake_script() -- Frame.smoothdrag
 	dragify(script.Parent)
 	
 end
-coroutine.wrap(TGCZ_fake_script)()
+coroutine.wrap(EMNLVJ_fake_script)()
