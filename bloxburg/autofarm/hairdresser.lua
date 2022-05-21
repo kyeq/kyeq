@@ -16,19 +16,15 @@ local autofarmtoggle = Instance.new("TextButton")
 local UICorner_4 = Instance.new("UICorner")
 local status = Instance.new("TextLabel")
 local UITextSizeConstraint_2 = Instance.new("UITextSizeConstraint")
-
 bloxburgUI.Name = "bloxburgUI"
 bloxburgUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 bloxburgUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
 Frame.Parent = bloxburgUI
 Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Frame.BorderSizePixel = 0
 Frame.Position = UDim2.new(0.411810756, 0, 0.385861576, 0)
 Frame.Size = UDim2.new(0.244657338, 0, 0.228276849, 0)
-
 UICorner.Parent = Frame
-
 title.Name = "title"
 title.Parent = Frame
 title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -41,10 +37,8 @@ title.TextColor3 = Color3.fromRGB(0, 170, 255)
 title.TextScaled = true
 title.TextSize = 14.000
 title.TextWrapped = true
-
 UITextSizeConstraint.Parent = title
 UITextSizeConstraint.MaxTextSize = 37
-
 exitButton.Name = "exitButton"
 exitButton.Parent = Frame
 exitButton.BackgroundColor3 = Color3.fromRGB(208, 208, 208)
@@ -54,7 +48,6 @@ exitButton.Font = Enum.Font.Arial
 exitButton.Text = "X"
 exitButton.TextColor3 = Color3.fromRGB(150, 150, 150)
 exitButton.TextSize = 14.000
-
 UICorner_2.Parent = exitButton
 
 UIAspectRatioConstraint.Parent = exitButton
@@ -132,15 +125,15 @@ UITextSizeConstraint_2.MaxTextSize = 14
 
 -- Scripts:
 
-local function ZITRJ_fake_script() -- exitButton.exitScript 
+local function BXHJ_fake_script() -- exitButton.exitScript 
 	local script = Instance.new('LocalScript', exitButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent:Destroy()
 	end)
 end
-coroutine.wrap(ZITRJ_fake_script)()
-local function HWCBCWR_fake_script() -- jobearnings.update 
+coroutine.wrap(BXHJ_fake_script)()
+local function OWPPP_fake_script() -- jobearnings.update 
 	local script = Instance.new('LocalScript', jobearnings)
 
 	while task.wait() do
@@ -150,8 +143,8 @@ local function HWCBCWR_fake_script() -- jobearnings.update
 		end)
 	end
 end
-coroutine.wrap(HWCBCWR_fake_script)()
-local function RLGSTD_fake_script() -- autofarmtoggle.toggle 
+coroutine.wrap(OWPPP_fake_script)()
+local function JWGHAJF_fake_script() -- autofarmtoggle.toggle 
 	local script = Instance.new('LocalScript', autofarmtoggle)
 
 	local newBoolean = Instance.new("BoolValue",script.Parent)
@@ -170,8 +163,8 @@ local function RLGSTD_fake_script() -- autofarmtoggle.toggle
 		end
 	end)
 end
-coroutine.wrap(RLGSTD_fake_script)()
-local function NZKMGFI_fake_script() -- Frame.main 
+coroutine.wrap(JWGHAJF_fake_script)()
+local function QDNCK_fake_script() -- Frame.main 
 	local script = Instance.new('LocalScript', Frame)
 
 	local hairs = {Afro = 11412443,Charming = 74878559,Combed = 13332444,Headband = 13070796,Pigtails = 82186393,Messy = 26400959,Bun = 47963332,Long = 19999424,Curly = 31309506,Sideswept = 16627529}
@@ -207,8 +200,9 @@ local function NZKMGFI_fake_script() -- Frame.main
 							local customer = station.Occupied.Value
 							if customer ~= previousCustomer then
 								if not customer then continue end
-								statusText.Text = 'Detecting customer...'
+								statusText.Text = 'Waiting...'
 								repeat task.wait() until customer.Head:FindFirstChild('ChatBubble')
+								statusText.Text = 'Attempting to serve customer...'
 								previousCustomer = customer
 								local customerOrder = {Style=customer.Order:WaitForChild('Style').Value,Color=customer.Order:WaitForChild('Color').Value}
 								local stationButtons = station:WaitForChild('Mirror'):WaitForChild('HairdresserGUI').Frame
@@ -229,13 +223,79 @@ local function NZKMGFI_fake_script() -- Frame.main
 								getconnections(stationButtons:FindFirstChild('Done').Activated)[1]:Fire()
 								statusText.Text = 'Customer successfully served!'
 								totalServed += 1
-								totalServeText = tostring("Customers served: "..totalServed)
+								totalServeText.Text = tostring("Customers served: "..totalServed)
 							end
-						else
-							statusText.Text = 'Begin working at Hairdressers, worker'
+						end
+					end
+				elseif waitOrder then
+					local randomNum: number = math.random(1,15)
+					local workStations = game:GetService('Workspace').Environment.Locations.StylezHairStudio.HairdresserWorkstations
+					for i,station in pairs(workStations:GetChildren()) do
+						if tostring(station.InUse.Value) == game.Players.LocalPlayer.Name then
+							local customer = station.Occupied.Value
+							if customer ~= previousCustomer then
+								if randomNum ~= 15 then
+									if not customer then continue end
+									statusText.Text = 'Waiting...'
+									repeat task.wait() until customer.Head:FindFirstChild('ChatBubble')
+									task.wait(getRandomWaitTime())
+									statusText.Text = 'Attempting to serve customer....'
+									previousCustomer = customer
+									local customerOrder = {Style=customer.Order:WaitForChild('Style').Value,Color=customer.Order:WaitForChild('Color').Value}
+									local stationButtons = station:WaitForChild('Mirror'):WaitForChild('HairdresserGUI').Frame
+									local shuffle1 = 0
+									repeat task.wait(getRandomWaitTime())
+										shuffle1 += 1
+										statusText.Text = 'Shuffling hair... '..shuffle1..'x'
+										getconnections(stationButtons:FindFirstChild('Style')['Next'].Activated)[1]:Fire()
+									until tonumber(station:WaitForChild('HairdresserDummy').Hair.Mesh.MeshId:split("id=")[2]) == tonumber(hairs[tostring(customerOrder['Style'])])
+									local shuffle2 = 0
+									repeat task.wait(getRandomWaitTime())
+										shuffle2 += 1
+										statusText.Text = 'Shuffling color... '..shuffle2..'x'
+										getconnections(stationButtons:FindFirstChild('Color')['Next'].Activated)[1]:Fire()
+									until station:WaitForChild('HairdresserDummy').Hair.BrickColor == colors[tostring(customerOrder['Color'])]
+									statusText.Text = 'Hair successfully completed...'
+									task.wait(getRandomWaitTime())
+									getconnections(stationButtons:FindFirstChild('Done').Activated)[1]:Fire()
+									statusText.Text = 'Customer successfully served!'
+									totalServed += 1
+									totalServeText.Text = tostring("Customers served: "..totalServed)
+								elseif randomNum == 15 then
+									if not customer then continue end
+									statusText.Text = 'Waiting...'
+									repeat task.wait() until customer.Head:FindFirstChild('ChatBubble')
+									task.wait(getRandomWaitTime())
+									statusText.Text = 'Attempting to fail serve customer...'
+									previousCustomer = customer
+									local customerOrder = {Style=customer.Order:WaitForChild('Style').Value,Color=customer.Order:WaitForChild('Color').Value}
+									local stationButtons = station:WaitForChild('Mirror'):WaitForChild('HairdresserGUI').Frame
+									local shuffle1 = 0
+									repeat task.wait(getRandomWaitTime())
+										shuffle1 += 1
+										statusText.Text = 'Shuffling hair... '..shuffle1..'x'
+										getconnections(stationButtons:FindFirstChild('Style')['Next'].Activated)[1]:Fire()
+									until tonumber(station:WaitForChild('HairdresserDummy').Hair.Mesh.MeshId:split("id=")[2]) == tonumber(hairs[tostring(customerOrder['Style'])])
+									getconnections(stationButtons:FindFirstChild('Style')['Next'].Activated)[1]:Fire()
+									local shuffle2 = 0
+									repeat task.wait(getRandomWaitTime())
+										shuffle2 += 1
+										statusText.Text = 'Shuffling color... '..shuffle2..'x'
+										getconnections(stationButtons:FindFirstChild('Color')['Next'].Activated)[1]:Fire()
+									until station:WaitForChild('HairdresserDummy').Hair.BrickColor == colors[tostring(customerOrder['Color'])]
+									getconnections(stationButtons:FindFirstChild('Color')['Next'].Activated)[1]:Fire()
+									statusText.Text = 'Attempted to fail order...'
+									task.wait(getRandomWaitTime())
+									getconnections(stationButtons:FindFirstChild('Done').Activated)[1]:Fire()
+									statusText.Text = 'Successfully failed order!'
+									totalServeText.Text = tostring("Customers served: "..totalServed)
+								end
+							end
 						end
 					end
 				end
+			else
+				statusText.Text = 'Begin working at Hairdressers, worker'
 			end
 		end)	
 		if not success then
@@ -243,8 +303,8 @@ local function NZKMGFI_fake_script() -- Frame.main
 		end
 	end
 end
-coroutine.wrap(NZKMGFI_fake_script)()
-local function EMNLVJ_fake_script() -- Frame.smoothdrag 
+coroutine.wrap(QDNCK_fake_script)()
+local function DGBMMA_fake_script() -- Frame.smoothdrag 
 	local script = Instance.new('LocalScript', Frame)
 
 	local UIS = game:GetService("UserInputService")
@@ -285,4 +345,4 @@ local function EMNLVJ_fake_script() -- Frame.smoothdrag
 	dragify(script.Parent)
 	
 end
-coroutine.wrap(EMNLVJ_fake_script)()
+coroutine.wrap(DGBMMA_fake_script)()
